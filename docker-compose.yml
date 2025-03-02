@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: flower-postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-flowerpass}
+      - POSTGRES_USER=${POSTGRES_USER:-floweruser}
+      - POSTGRES_DB=${POSTGRES_DB:-flowerdb}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - flower-network
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /volume2/docker/flower-db/data
+
+networks:
+  flower-network:
+    external: true 
