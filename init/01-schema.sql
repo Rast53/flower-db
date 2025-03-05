@@ -28,9 +28,14 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     telegram_id BIGINT UNIQUE,
     name VARCHAR(100),
+    username VARCHAR(100),
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
     phone VARCHAR(20),
     email VARCHAR(100),
     address TEXT,
+    password VARCHAR(255),
+    is_admin BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
